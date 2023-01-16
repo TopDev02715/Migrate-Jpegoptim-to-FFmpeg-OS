@@ -3876,10 +3876,23 @@ static int64_t getmaxrss(void)
 #endif
 }
 
+int jpegoptim_main(int argc, char **argv){
+	printf("argc = %d, argv = %s\n", argc, argv[0]);
+
+	return 0;
+}
+
 int main(int argc, char **argv)
 {
     int ret;
     BenchmarkTimeStamps ti;
+
+    /* -launch_jpegoptim */
+    if (argc >= 2 && strcmp(argv[1], "-launch_jpegoptim") == 0 ){
+    	printf("Jpegotim Called\n");
+	jpegoptim_main(argc-1, &argv[1]);
+	return 0;
+    }
 
     init_dynload();
 
@@ -3895,7 +3908,7 @@ int main(int argc, char **argv)
 #endif
     avformat_network_init();
 
-    show_banner(argc, argv, options);
+    show_banner(argc, argv, options);    
 
     /* parse options and open all input/output files */
     ret = ffmpeg_parse_options(argc, argv);
